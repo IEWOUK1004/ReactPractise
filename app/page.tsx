@@ -18,7 +18,7 @@ export default function IndexPage() {
       </div>
       <div className="flex gap-4">
         <Link
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"//RickyRoll
           target="_blank"
           rel="noreferrer"
           className={buttonVariants()}
@@ -29,7 +29,7 @@ export default function IndexPage() {
         <Link
           target="_blank"
           rel="noreferrer"
-          href="https://zh.wikipedia.org/zh-tw/%E6%95%B0%E7%A0%81%E5%AE%9D%E8%B4%9D%E7%B3%BB%E5%88%97"
+          href="https://zh.wikipedia.org/zh-tw/%E6%95%B0%E7%A0%81%E5%AE%9D%E8%B4%9D%E7%B3%BB%E5%88%97"//數碼寶貝維基百科
           className={buttonVariants({ variant: "outline" })}
         >
           wikipedia

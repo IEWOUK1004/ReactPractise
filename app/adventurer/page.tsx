@@ -89,7 +89,9 @@ const AdventurePage=()=>{
 
     const addAdventureButton=()=>{
         if (inputName && inputAge && inputCrest) { // 檢查輸入是否不為空
-            const newId = userData.length + 1;
+            // const newId = userData.length + 1;
+            // const newId = userData.findLastIndex((userData) => userData.id) + 1;
+            const newId = userData.length > 0 ? userData[userData.length - 1].id + 1 : 1; //(用三元運算值)去找最後一個值再把該值ID+1
             const newData = {
                 id: newId,
                 name: inputName,
@@ -109,6 +111,22 @@ const AdventurePage=()=>{
     const delAdventureButton=(id:number)=>{//從table中刪除一筆數據
         const newUserData = userData.filter((userData) => userData.id !== id);
         setUserData(newUserData);   
+    }
+
+    const updateAdventureButton=(id:number)=>{
+   
+        const newUserData = userData.map((userData) => userData.id === id
+            ? {
+                ...userData,
+                name: inputName,
+                age: parseInt(inputAge),
+                Crest: inputCrest
+            } : userData
+        );   
+        setUserData(newUserData);   
+        setInputName("");
+        setInputAge("");
+        setInputCrest("");
     }
 
     const handleSubmit = (e:FormEvent<HTMLFormElement> ) =>{//確認新增資料
@@ -142,7 +160,46 @@ const AdventurePage=()=>{
                                     <TableCell>{userData.name}</TableCell>
                                     <TableCell>{userData.age}</TableCell>
                                     <TableCell>{userData.Crest}</TableCell>
-                                    <TableCell>{<Button variant="outline" onClick={()=>delAdventureButton(userData.id)}>刪除</Button>}</TableCell>
+                                    <TableCell>
+                                        {<Button variant="destructive" onClick={()=>delAdventureButton(userData.id)}>刪除</Button>}
+                                        {<AlertDialog>
+                                            <AlertDialogTrigger><Button variant="outline">修改</Button></AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                            <AlertDialogTitle>確定修改嗎?</AlertDialogTitle>
+                                            <AlertDialogDescription>
+                                                舊資料 姓名:{userData.name}，年紀:{userData.age}， 徽章:{userData.Crest} 
+                                                <h2>姓名</h2>
+                                                    <input 
+                                                        type="text" 
+                                                        value={inputName} 
+                                                        className="border-block border"
+                                                        onChange={(e)=>setInputName(e.target.value)} required
+                                                        />
+                                            
+                                                    <h2>年紀</h2>
+                                                    <input 
+                                                        type="text" 
+                                                        value={inputAge} 
+                                                        className="border-block border"
+                                                        onChange={(e)=>setInputAge(e.target.value)} required
+                                                        />
+                                                    <h2>象徵徽章</h2>
+                                                    <input 
+                                                        type="text" 
+                                                        value={inputCrest} 
+                                                        className="border-block border"
+                                                        onChange={(e)=>setInputCrest(e.target.value)} required
+                                                        />
+                                            </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                            <AlertDialogAction onClick={()=>updateAdventureButton(userData.id)}>Continue</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>}
+                                     </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
