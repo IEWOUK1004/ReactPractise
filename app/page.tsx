@@ -2,19 +2,25 @@ import Link from "next/link"
 
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
+import useWorldContext from "./hooks/use-world-context";
 
 export default function IndexPage() {
+
+  const { name } = useWorldContext();
+
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-        デジモンアドベンチャー<br className="hidden sm:inline" />
-        Digmon Adventure <br className="hidden sm:inline" />
-        數碼寶貝大冒險
+          デジモンアドベンチャー<br className="hidden sm:inline" />
+          Digmon Adventure <br className="hidden sm:inline" />
+          數碼寶貝大冒險
         </h1>
         <p className="max-w-[700px] text-lg text-muted-foreground">
-        想成為數碼寶貝訓練家嗎
+          想成為數碼寶貝訓練家嗎
         </p>
+        <p>{name}</p>
+
       </div>
       <div className="flex gap-4">
         <Link

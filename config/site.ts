@@ -9,6 +9,10 @@ export const siteConfig = {
       title: "adventurer",
       href: "/adventurer",
     },
+    {
+      title: "digmon",
+      href: "/digmon",
+    },
   ],
   links: {
     github: "https://github.com/CinemaCafe/next-template",
