@@ -1,4 +1,4 @@
-interface digmon{
+interface digimon{
     id: number
     name: string
     age: number

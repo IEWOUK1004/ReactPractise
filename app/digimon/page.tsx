@@ -26,7 +26,7 @@ import {
 import { toast } from "@/components/ui/use-toast"
 
 
-const DigmonPage=()=>{
+const digimonPage=()=>{
 
 
 const FormSchema = z.object({
@@ -107,7 +107,7 @@ function onSubmit(data: z.infer<typeof FormSchema>) {
       </div>
       <div className="col-span-2 grid items-start gap-6  p-8 lg:col-span-2 lg:grid-cols-2 xl:col-span-1 xl:grid-cols-1">
          <Image
-                id="digmonimage"
+                id="digimonimage"
                 src="/images/Digimon_Adventure.gif" // 指定圖片路徑
                 alt="預設數碼寶貝圖"
                 width={300} // 指定寬度
@@ -119,4 +119,4 @@ function onSubmit(data: z.infer<typeof FormSchema>) {
     </>
     )
 }
-export default DigmonPage;
+export default digimonPage;
