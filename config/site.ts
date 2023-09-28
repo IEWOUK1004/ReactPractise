@@ -6,13 +6,29 @@ export const siteConfig = {
     "Beautifully designed components built with Radix UI and Tailwind CSS.",
   mainNav: [
     {
-      title: "adventurer",
+      title: "Adventurer",
       href: "/adventurer",
     },
     {
-      title: "digimon",
+      title: "Digimon",
       href: "/digimon",
     },
+    {
+      title: "Story",
+      href: "/story",
+    },
+    {
+      title: "Album",
+      href: "/album",
+    },
+    {
+      title: "Accordion",
+      href: "/accordion",
+    },
+    {
+      title: "Books",
+      href: "/books",
+    }
   ],
   links: {
     github: "https://github.com/CinemaCafe/next-template",

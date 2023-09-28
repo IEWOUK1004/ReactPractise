@@ -25,7 +25,7 @@ const WorldProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     const valueToShare = {
-        name,
+        name : "Wellcome to Digimon World",
         age,
         handleSetName
     }

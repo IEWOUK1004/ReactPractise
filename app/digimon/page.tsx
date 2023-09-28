@@ -1,11 +1,8 @@
 "use client";
 import Image from 'next/image';
-
-import Link from "next/link"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import * as z from "zod"
- 
 import { Button } from "@/components/ui/button"
 import {
   Form,
@@ -23,60 +20,63 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { toast } from "@/components/ui/use-toast"
-
-
-const digimonPage=()=>{
+import { useDigimonContext } from '@/context/digimondataContext';
 
 
 const FormSchema = z.object({
-  email: z
+  digimonName: z
     .string({
-      required_error: "Please select an email to display.",
+      required_error: "Please select an digimonName to display.",
     })
-    .email(),
+    .default("")
 })
 
- const form = useForm<z.infer<typeof FormSchema>>({
+const DigimonPage=()=>{
+
+  const { digimonData, image, setImage, introduce, setIntroduce } = useDigimonContext();
+
+  // const [image,setImage] = useState("")
+  // const [introduce ,setIntroduce ] = useState("")
+  
+  const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   })
 
-function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "你選的信箱",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    })
+
+  function updateImageAndIntroduce(data: { digimonName: string }) {
+    const selectedDigimon = digimonData[data.digimonName] || { image: "", introduce: "" };
+    setImage(selectedDigimon.image);
+    setIntroduce(selectedDigimon.introduce);
   }
 
-
- 
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    updateImageAndIntroduce(data);
+  }
 
     return(
         <>
-         <div className="items-start justify-center gap-6 rounded-lg p-8 md:grid lg:grid-cols-2 xl:grid-cols-3">
-          <div className="col-span-2 grid items-start gap-6 lg:col-span-1"> 
+         <div className="items-start justify-center gap-6 rounded-lg p-8  sm:grid  md:grid-cols-2 lg:grid-cols-3">
+          <div id="block1" className="col-span-2 grid items-start gap-6  p-8  lg:col-span-1"> 
                <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         <FormField
           control={form.control}
-          name="email"
+          name="digimonName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>選擇數碼獸</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="點選查看詳細資料" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value="m@example.com">m@example.com</SelectItem>
-                  <SelectItem value="m@google.com">m@google.com</SelectItem>
-                  <SelectItem value="m@support.com">m@support.com</SelectItem>
+                  <SelectItem value="Agumon">亞古獸</SelectItem>
+                  <SelectItem value="Greymon">暴龍獸</SelectItem>
+                  <SelectItem value="MetalGreymon">機械暴龍獸</SelectItem>
+                  <SelectItem value="WarGreymon">戰鬥暴龍獸</SelectItem>
+                  <SelectItem value="AgumonBondofCourage">戰鬥暴龍獸勇氣之絆</SelectItem>
                 </SelectContent>
               </Select>
               <FormDescription>
@@ -87,25 +87,23 @@ function onSubmit(data: z.infer<typeof FormSchema>) {
             </FormItem>
           )}
         />
-        <Button type="submit">Submit</Button>
+        <Button type="submit">確定</Button>
       </form>
     </Form>
-
-
           
           </div>
-      <div className=" col-span-2 grid items-start gap-6 p-8 lg:col-span-1">
+          <div id="block2" className="auto-cols-auto   p-8 ">
           <div>
               <Image
                 id="LOGO"
-                src="/images/Digimon_Logo.png" // 指定圖片路徑
+                src= {image|| "/images/Digimon_Logo.png"} // 指定圖片路徑
                 alt="預設數碼寶貝圖"
-                width={300} // 指定寬度
+                width={400} // 指定寬度
                 height={200} // 指定高度
               />
         </div>
       </div>
-      <div className="col-span-2 grid items-start gap-6  p-8 lg:col-span-2 lg:grid-cols-2 xl:col-span-1 xl:grid-cols-1">
+      <div id="block3" className="auto-cols-auto p-8  ">
          <Image
                 id="digimonimage"
                 src="/images/Digimon_Adventure.gif" // 指定圖片路徑
@@ -113,10 +111,11 @@ function onSubmit(data: z.infer<typeof FormSchema>) {
                 width={300} // 指定寬度
                 height={200} // 指定高度
               />
-        
+         <h1>數碼獸介紹</h1>
+         <p>{introduce}</p>
         </div>
     </div>
     </>
     )
 }
-export default digimonPage;
+export default DigimonPage;

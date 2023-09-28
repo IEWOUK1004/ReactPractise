@@ -1,6 +1,6 @@
 "use client";
-import {ChangeEvent,FormEvent ,useEffect, useState } from "react";
-import { Button } from "@/components/ui/button"
+import {FormEvent ,useEffect, useState } from "react";
+import { Button, buttonVariants } from "@/components/ui/button"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -23,69 +23,17 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { table } from "console";
+import { PeopleProp } from "@/components/adventure/PeopleProp";
 
-
+ 
 
 const AdventurePage=()=>{
-    const [userData, setUserData] = useState([
-        {
-            id: 1,
-            name: "八神太一",
-            age: 11,
-            Crest: "勇氣",
-        },   
-        {
-            id: 2,
-            name: "石田大和",
-            age: 11,
-            Crest: "友情",
-        },
-        {
-            id: 3,
-            name: "武之內空",
-            age: 11,
-            Crest: "愛心",
-        },
-        {
-            id: 4,
-            name: "泉光子郎",
-            age: 10,
-            Crest: "知識",
-        },
-        {
-            id: 5,
-            name: "太刀川美美",
-            age: 10,
-            Crest: "純真",
-        },
-        {
-            id: 6,
-            name: "城戶丈",
-            age: 12,
-            Crest: "誠實",
-        },
-        {
-            id: 7,
-            name: "高石岳",
-            age: 8,
-            Crest: "希望",
-        },
-        {
-            id: 8,
-            name: "八神光",
-            age: 8,
-            Crest: "光明",
-        },
-        // ...其他初始數據
-    ]);
+    const [userData, setUserData] = useState(PeopleProp);
     const [inputName,setInputName]= useState("");
     const [inputAge,setInputAge]= useState ("");
     const [inputCrest,setInputCrest]= useState("");
 
-    useEffect(() => {
-        console.log("effect")
-      }, [inputName]);
+
 
     const addAdventureButton=()=>{
         if (inputName && inputAge && inputCrest) { // 檢查輸入是否不為空
@@ -163,7 +111,7 @@ const AdventurePage=()=>{
                                     <TableCell>
                                         {<Button variant="destructive" onClick={()=>delAdventureButton(userData.id)}>刪除</Button>}
                                         {<AlertDialog>
-                                            <AlertDialogTrigger><Button variant="outline">修改</Button></AlertDialogTrigger>
+                                            <AlertDialogTrigger className={buttonVariants()}>修改</AlertDialogTrigger>
                                             <AlertDialogContent>
                                             <AlertDialogHeader>
                                             <AlertDialogTitle>確定修改嗎?</AlertDialogTitle>
@@ -173,7 +121,7 @@ const AdventurePage=()=>{
                                                     <input 
                                                         type="text" 
                                                         value={inputName} 
-                                                        className="border-block border"
+                                                        // className="border-block border"
                                                         onChange={(e)=>setInputName(e.target.value)} required
                                                         />
                                             
@@ -181,14 +129,14 @@ const AdventurePage=()=>{
                                                     <input 
                                                         type="text" 
                                                         value={inputAge} 
-                                                        className="border-block border"
+                                                        // className="border-block border"
                                                         onChange={(e)=>setInputAge(e.target.value)} required
                                                         />
                                                     <h2>象徵徽章</h2>
                                                     <input 
                                                         type="text" 
                                                         value={inputCrest} 
-                                                        className="border-block border"
+                                                        // className="border-block border"
                                                         onChange={(e)=>setInputCrest(e.target.value)} required
                                                         />
                                             </AlertDialogDescription>
@@ -205,7 +153,7 @@ const AdventurePage=()=>{
                         </TableBody>
                     </Table>
 
-                    <form onSubmit={handleSubmit}>
+                    <form id="adventureForm" onSubmit={handleSubmit}>
                         <div className=" row-auto mb-5 mr-5">
                             <p className="text-2xl ">新增被選召的孩子</p>
                             <h2>姓名</h2>

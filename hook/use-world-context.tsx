@@ -1,5 +1,5 @@
 import { useContext, useState } from "react"
-import WorldContext from "../contest/worldsetting"
+import WorldContext from "../context/worldsetting"
 
 const useWorldContext = () => {
     const context = useContext(WorldContext);
